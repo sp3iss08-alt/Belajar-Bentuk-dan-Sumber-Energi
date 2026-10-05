@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Belajar Energi</title>
+<style>
+:root{--bg:#d9f0ff;--card:#fff;--ink:#1d2b4f;--mut:#51608a;--line:#1d2b4f;--yel:#ffd23f;--ok:#2fbf71;--bad:#ff5d5d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14203d;--card:#22305a;--ink:#f4f7ff;--mut:#b4c0e4;--line:#f4f7ff}}
+:root[data-theme="dark"]{--bg:#14203d;--card:#22305a;--ink:#f4f7ff;--mut:#b4c0e4;--line:#f4f7ff}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.5}
+main{max-width:620px;margin:0 auto;padding:18px 14px 40px}
+h1{font-size:2rem;line-height:1.1;margin:6px 0 4px;text-align:center}
+.sub{text-align:center;color:var(--mut);margin:0 0 16px}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{flex:1;font:inherit;font-weight:700;padding:10px 4px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--line)}
+.tab[aria-selected="true"]{background:var(--yel);color:#1d2b4f}
+.tab:focus-visible,.card:focus-visible,.btn:focus-visible,.opt:focus-visible{outline:4px solid #7b61ff;outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{font:inherit;color:var(--ink);background:var(--card);border:3px solid var(--line);border-radius:18px;padding:12px 6px;text-align:center;cursor:pointer;box-shadow:4px 4px 0 var(--line)}
+.card .e{display:block;font-size:2.6rem;line-height:1.2}
+.card b{display:block}
+.card[aria-pressed="true"]{background:var(--c);color:#1d2b4f;transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.panel{margin-top:16px;background:var(--card);border:3px solid var(--line);border-radius:20px;padding:14px;box-shadow:5px 5px 0 var(--line)}
+.stage{position:relative;height:200px;border-radius:14px;border:3px dashed var(--line);display:grid;place-items:center;overflow:hidden;transition:box-shadow .3s,background .3s}
+.big{font-size:5.5rem;line-height:1;transition:transform .3s}
+.on .big{animation:wig .5s infinite alternate}
+.fx{position:absolute;bottom:20px;font-size:1.8rem;opacity:0;pointer-events:none}
+.on .fx{animation:up 1.6s infinite}
+@keyframes up{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-150px);opacity:0}}
+@keyframes wig{from{transform:rotate(-8deg) scale(1)}to{transform:rotate(8deg) scale(1.12)}}
+.btn{display:block;width:100%;margin:12px 0;font:inherit;font-weight:700;padding:12px;border:3px solid var(--line);border-radius:14px;background:var(--yel);color:#1d2b4f;cursor:pointer;box-shadow:3px 3px 0 var(--line)}
+.panel h2{margin:4px 0;font-size:1.4rem}
+.panel p{margin:6px 0}
+.tip{background:var(--yel);color:#1d2b4f;border-radius:12px;padding:8px 12px;font-weight:700}
+.q{font-size:1.2rem;font-weight:700;margin:6px 0 12px}
+.opt{display:block;width:100%;margin:8px 0;font:inherit;padding:12px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);cursor:pointer;text-align:left}
+.opt.ok{background:var(--ok);color:#fff}.opt.no{background:var(--bad);color:#fff}
+.msg{min-height:1.5em;font-weight:700}
+.score{font-size:3rem;text-align:center;margin:8px 0}
+@media (prefers-reduced-motion:reduce){.on .big,.on .fx{animation:none}.on .fx{opacity:1}}
+</style>
+</head>
+<body>
+<main>
+<h1>⚡ Belajar Energi</h1>
+<p class="sub">Ketuk gambar, lalu coba nyalakan!</p>
+<div class="tabs" role="tablist">
+<button class="tab" role="tab" data-t="bentuk">Bentuk Energi</button>
+<button class="tab" role="tab" data-t="sumber">Sumber Energi</button>
+<button class="tab" role="tab" data-t="kuis">Kuis</button>
+</div>
+<div id="v"></div>
+</main>
+<script>
+const D={
+bentuk:[
+{n:"Energi Panas",o:"🍳",t:"Kompor",c:"#ff9f43",fx:["🔥","♨️","🔥"],b:"Nyalakan kompor!",e:"Kompor menyala, lalu panci di atasnya jadi panas. Rasa hangat dan panas itu namanya energi panas.",k:"Bisa kita rasakan dengan kulit."},
+{n:"Energi Listrik",o:"💡",t:"Lampu",c:"#ffd23f",fx:["⚡","✨","⚡"],b:"Nyalakan lampu!",e:"Lampu bisa menyala karena ada listrik yang mengalir lewat kabel. Itu energi listrik.",k:"Listrik mengalir lewat kabel."},
+{n:"Energi Bunyi",o:"📻",t:"Radio",c:"#ff8fb1",fx:["🎵","🎶","🎵"],b:"Nyalakan radio!",e:"Radio mengeluarkan suara yang bisa kita dengar. Suara itu namanya energi bunyi.",k:"Bisa kita dengar dengan telinga."},
+{n:"Energi Cahaya",o:"🔦",t:"Senter",c:"#7ee0ff",fx:["✨","🌟","✨"],b:"Nyalakan senter!",e:"Senter menyala dan menerangi tempat yang gelap. Terang itu namanya energi cahaya.",k:"Bisa kita lihat dengan mata."}],
+sumber:[
+{n:"Matahari",o:"☀️",t:"Cahaya dan panas",c:"#ffd23f",fx:["👕","🌱","☀️"],b:"Terbitkan matahari!",e:"Matahari memberi cahaya dan panas. Karena itu jemuran jadi kering dan tanaman bisa tumbuh.",k:"Sumber energi terbesar di bumi."},
+{n:"Angin",o:"🌬️",t:"Gerak",c:"#a8e6ff",fx:["🌀","⛵","🌀"],b:"Tiupkan angin!",e:"Angin yang bertiup bisa memutar kincir angin dan mendorong perahu layar.",k:"Angin bisa dipakai untuk menggerakkan benda."},
+{n:"Air",o:"💧",t:"Bendungan",c:"#6ec6ff",fx:["💧","⚡","💧"],b:"Alirkan air!",e:"Air yang mengalir deras bisa memutar baling-baling di bendungan. Putarannya menghasilkan listrik.",k:"Air bisa menjadi listrik."},
+{n:"Minyak Bumi",o:"🛢️",t:"Bensin",c:"#c9b6ff",fx:["🏍️","💨","🚌"],b:"Isi bensin!",e:"Minyak bumi diolah menjadi bensin dan solar. Bensin dipakai untuk menjalankan motor dan mobil.",k:"Minyak bumi akan habis, jadi hemat ya!"}]};
+const Q=[
+{q:"Kompor menghasilkan energi apa?",o:["Energi panas","Energi bunyi","Energi cahaya"],a:0},
+{q:"Radio menghasilkan energi apa?",o:["Energi panas","Energi bunyi","Energi listrik"],a:1},
+{q:"Mana yang termasuk sumber energi?",o:["Meja","Buku","Matahari"],a:2},
+{q:"Senter menghasilkan energi apa?",o:["Energi cahaya","Energi panas","Energi bunyi"],a:0},
+{q:"Air yang deras di bendungan dipakai untuk membuat...",o:["Suara","Listrik","Bensin"],a:1}];
+const v=document.getElementById("v");
+let tab="bentuk",sel=0,on=false,qi=0,score=0,done=false;
+function setTab(t){tab=t;sel=0;on=false;qi=0;score=0;done=false;
+document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));render()}
+function render(){tab==="kuis"?quiz():learn()}
+function learn(){
+const L=D[tab],d=L[sel];
+let h='<div class="grid">'+L.map((x,i)=>`<button class="card" style="--c:${x.c}" data-i="${i}" aria-pressed="${i===sel}"><span class="e">${x.o}</span><b>${x.n}</b></button>`).join("")+'</div>';
+const fx=d.fx.map((f,i)=>`<span class="fx" style="left:${20+i*28}%;animation-delay:${i*.45}s">${f}</span>`).join("")+d.fx.map((f,i)=>`<span class="fx" style="left:${34+i*28}%;animation-delay:${i*.45+.2}s">${f}</span>`).join("");
+h+=`<div class="panel"><h2>${d.o} ${d.n}</h2><div class="stage ${on?"on":""}" style="background:${d.c}55;${on?`box-shadow:inset 0 0 50px ${d.c}`:""}"><span class="big">${d.o}</span>${fx}</div>
+<button class="btn" id="go">${on?"Matikan":d.b}</button>
+<p>${d.e}</p>
+<p class="tip">${tab==="bentuk"?"Contoh benda: "+d.t+". ":""}${d.k}</p></div>`;
+v.innerHTML=h;
+v.querySelectorAll(".card").forEach(c=>c.onclick=()=>{sel=+c.dataset.i;on=false;learn()});
+document.getElementById("go").onclick=()=>{on=!on;learn()}}
+function quiz(){
+if(done){const g=score>=4?"🏆":score>=2?"😊":"💪";
+v.innerHTML=`<div class="panel"><div class="score">${g}</div><h2 style="text-align:center">Nilaimu ${score} dari ${Q.length}</h2><p style="text-align:center">${score>=4?"Hebat sekali! Kamu paham energi.":"Bagus! Coba lagi supaya makin pintar."}</p><button class="btn" id="re">Main lagi</button></div>`;
+document.getElementById("re").onclick=()=>{qi=0;score=0;done=false;quiz()};return}
+const q=Q[qi];
+v.innerHTML=`<div class="panel"><p>Soal ${qi+1} dari ${Q.length}</p><div class="q">${q.q}</div>${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")}<p class="msg" id="m"></p><button class="btn" id="nx" hidden>${qi===Q.length-1?"Lihat nilai":"Soal berikutnya"}</button></div>`;
+let ans=false;
+v.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(ans)return;ans=true;const i=+b.dataset.i;
+const ok=i===q.a;if(ok)score++;
+b.classList.add(ok?"ok":"no");
+if(!ok)v.querySelectorAll(".opt")[q.a].classList.add("ok");
+document.getElementById("m").textContent=ok?"Benar! 🎉":"Belum tepat. Jawaban yang benar ada di warna hijau.";
+const n=document.getElementById("nx");n.hidden=false;
+n.onclick=()=>{if(qi===Q.length-1)done=true;else qi++;quiz()}})}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>setTab(b.dataset.t));
+setTab("bentuk");
+</script>
+</body>
+</html>
